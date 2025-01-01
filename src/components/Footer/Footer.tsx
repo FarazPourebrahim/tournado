@@ -6,7 +6,7 @@ import MingcuteLinkedinFill from "@/icons/MingcuteLinkedinFill";
 import MingcuteTelegramFill from "@/icons/MingcuteTelegramFill";
 import MingcuteYoutubeFill from "@/icons/MingcuteYoutubeFill";
 
-import styles from "./footer.module.css";
+import styles from "./Footer.module.css";
 
 export default function FooterComponent(): ReactElement {
   const socialLinks = [
