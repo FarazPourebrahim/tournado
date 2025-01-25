@@ -15,7 +15,7 @@ export default function Header(): ReactElement {
   const navLinks = [
     { href: "/", label: "خانه" },
     { href: "/search", label: "جستجو" },
-    { href: "/history", label: "سوابق" },
+    { href: "/your-tours", label: "تور های شما" },
   ];
 
   return (

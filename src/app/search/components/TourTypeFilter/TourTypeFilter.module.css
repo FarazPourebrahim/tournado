@@ -1,0 +1,46 @@
+.filter {
+  padding: 1rem;
+
+  .label {
+    font-size: var(--fz-500);
+    font-weight: 700;
+    margin-block-end: 1rem;
+  }
+
+  .checkboxGroup {
+    font-size: var(--fz-400);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .checkboxItem {
+      display: flex;
+      align-items: center;
+
+      .checkbox {
+        margin-inline-end: 0.25rem;
+        cursor: pointer;
+
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        appearance: none;
+        outline: none;
+
+        background-color: #fff;
+        transition: 0.2s ease;
+        transition-property: opacity, transform;
+
+        &:checked {
+          background-color: var(--color-primary);
+          border-color: var(--color-primary);
+        }
+      }
+
+      .checkboxLabel {
+        cursor: pointer;
+      }
+    }
+  }
+}

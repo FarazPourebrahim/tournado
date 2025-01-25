@@ -1,0 +1,40 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-block-start: 5rem;
+  margin-block-end: 2rem;
+
+  .hero-image {
+    .circle {
+      height: 20rem;
+      width: 20rem;
+      border-radius: 50%;
+      background-color: var(--color-primary-lighter);
+      position: relative;
+      z-index: -1;
+      right: 10rem;
+    }
+    img {
+      position: relative;
+      z-index: 1;
+      margin-block-start: -1000rem;
+    }
+  }
+
+  .intro {
+    span {
+      color: var(--color-primary);
+    }
+
+    h2 {
+      font-size: var(--fz-800);
+      line-height: 1.1;
+      margin-block-end: 2rem;
+    }
+
+    p {
+      font-size: var(--fz-500);
+      line-break: loose;
+    }
+  }
+}

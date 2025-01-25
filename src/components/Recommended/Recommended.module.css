@@ -1,0 +1,31 @@
+.recommended {
+  margin: 2rem;
+
+  h3 {
+    font-size: var(--fz-500);
+    text-align: center;
+    margin-block-end: 2rem;
+  }
+
+  .random-recommendations {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+
+    .more {
+      padding: 2rem 1rem;
+      background-color: var(--color-primary);
+      color: var(--color-primary-fade);
+      cursor: pointer;
+      box-shadow: var(--shadow-700);
+      border-radius: 0.25rem;
+      font-size: var(--fz-500);
+      opacity: 0.9;
+
+      &:hover {
+        background-color: var(--color-primary-darker);
+      }
+    }
+  }
+}

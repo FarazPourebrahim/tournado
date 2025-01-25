@@ -1,0 +1,30 @@
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: var(--fz-400);
+  font-weight: 600;
+}
+
+.dropdown {
+  padding: 0.5rem;
+  font-size: var(--fz-400);
+  border: 1px solid var(--color-gray-80);
+  border-radius: 0.5rem;
+  background-color: var(--color-gray-98);
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-fade);
+  }
+}

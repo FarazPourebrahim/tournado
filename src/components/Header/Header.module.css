@@ -37,7 +37,6 @@
     &:hover {
       background-color: var(--color-primary-lighter);
       color: var(--color-gray-98);
-      border: none;
     }
   }
 }
