@@ -4,9 +4,11 @@ import { useContext, useState } from "react";
 import styles from "./DurationFilter.module.css";
 import { FiltersContext } from "@/app/search/providers/filters/filters.provider";
 import { FiltersType } from "@/app/search/types/filters.type";
+import Select from "@/components/Select/Select";
+import { durationOption } from "@/app/search/types/option.type";
 
 export default function DurationFilter() {
-  const options: { label: string; value: [number, number] }[] = [
+  const options: durationOption[] = [
     { label: "هر مدتی", value: [1, 30] },
     { label: "1 تا 3 روز", value: [1, 3] },
     { label: "4 تا 7 روز", value: [4, 7] },
@@ -15,14 +17,11 @@ export default function DurationFilter() {
   ];
 
   const { filters, changeFilter } = useContext(FiltersContext);
-  const [selectedOption, setSelectedOption] = useState<[number, number]>(
-    filters.duration || options[0].value,
-  );
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = options[Number(event.target.value)]
-      .value as FiltersType["duration"];
-    setSelectedOption(selectedValue);
+  const handleChange = (option: durationOption) => {
+    const selectedValue = option.value as FiltersType["duration"];
+    setSelectedOption(option);
     changeFilter("duration", selectedValue);
   };
 
@@ -31,22 +30,12 @@ export default function DurationFilter() {
       <label htmlFor="durationFilter" className={styles.label}>
         مدت زمان
       </label>
-      <select
-        id="durationFilter"
-        className={styles.dropdown}
-        onChange={handleChange}
-        value={options.findIndex(
-          (option) =>
-            option.value[0] === selectedOption[0] &&
-            option.value[1] === selectedOption[1],
-        )}
-      >
-        {options.map((option, index) => (
-          <option key={index} value={index}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+
+      <Select
+        options={options}
+        onSelectedOptionChange={handleChange}
+        selectedOption={selectedOption}
+      />
     </div>
   );
 }

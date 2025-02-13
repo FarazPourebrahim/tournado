@@ -1,0 +1,48 @@
+.container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 1rem;
+
+  .main {
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      padding-block: 1rem;
+      align-items: center;
+
+      .title {
+        text-align: center;
+        font-size: var(--fz-500);
+        color: var(--color-gray-20);
+      }
+    }
+
+    .separator {
+      width: 100%;
+      border: 1px solid var(--color-gray-90);
+    }
+
+    .image {
+      max-width: 40rem;
+      margin-inline: auto;
+      margin-block-start: 2rem;
+
+      img {
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  .recommended {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    min-height: auto;
+    margin-block-end: 1rem;
+    margin-block-start: 5rem;
+
+    .recommended-header {
+      text-align: center;
+    }
+  }
+}

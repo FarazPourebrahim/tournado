@@ -2,26 +2,25 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-block-start: 10rem;
+  gap: 10rem;
 
   .info {
-    font-size: var(--fz-500);
-
-    p {
-      text-align: right;
-      max-width: 30ch;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
     span {
-      font-weight: 700;
-      &.danger {
-        color: var(--color-danger);
-      }
-      &.success {
-        color: var(--color-success);
-      }
-      &.primary {
-        color: var(--color-primary);
-      }
+      color: var(--color-primary);
+    }
+
+    h4 {
+      font-size: var(--fz-700);
+    }
+
+    p {
+      font-size: var(--fz-450);
+      text-align: right;
+      max-width: 40ch;
     }
   }
 

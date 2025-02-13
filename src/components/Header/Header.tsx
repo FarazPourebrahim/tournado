@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 import styles from "./Header.module.css";
+import "@/styles/btn.css";
 
 export default function Header(): ReactElement {
   const pathname = usePathname();
@@ -34,7 +35,7 @@ export default function Header(): ReactElement {
           ))}
         </ul>
       </nav>
-      <button className={styles.cta}>ورود | ثبت‌نام</button>
+      <button className={clsx(styles.cta, "btn")}>ورود | ثبت‌نام</button>
     </header>
   );
 }

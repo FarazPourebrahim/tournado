@@ -2,18 +2,26 @@ import { useContext, useMemo, useState } from "react";
 import { FiltersContext } from "@/app/search/providers/filters/filters.provider";
 import { mockTours } from "@/mocks/mockTours";
 
-export function useTours() {
+export function useTours(query: string) {
   const { filters } = useContext(FiltersContext);
-  const [sortOption, setSortOption] = useState<string>("price-asc");
+  const [sortOption, setSortOption] = useState({
+    label: "قیمت (کم به زیاد)",
+    value: "price-asc",
+  });
 
-  const handleSortChange = (option: string) => {
+  const handleSortChange = (option: { value: string; label: string }) => {
     setSortOption(option);
   };
 
   const filteredMockTours = useMemo(() => {
     return mockTours.filter((item) => {
+      const matchesQuery = query
+        ? item.title.toLowerCase().includes(query.toLowerCase())
+        : true;
+
       return (
-        (filters.type === "All" || filters.type.includes(item.type)) &&
+        matchesQuery &&
+        (filters.type === "All" || filters.type.includes(item.type.value)) &&
         item.price >= filters.min &&
         item.price <= filters.max &&
         (!filters.isGuideMandatory ||
@@ -22,11 +30,11 @@ export function useTours() {
         item.duration <= filters.duration[1]
       );
     });
-  }, [filters]);
+  }, [filters, query]);
 
   const sortedMockTours = useMemo(() => {
     return [...filteredMockTours].sort((a, b) => {
-      switch (sortOption) {
+      switch (sortOption.value) {
         case "price-asc":
           return a.price - b.price;
         case "price-desc":

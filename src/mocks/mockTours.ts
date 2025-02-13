@@ -1,7 +1,5 @@
-export type MockTour = {
-  id: number;
-  title: string;
-  type:
+export type TourType = {
+  value:
     | "Relaxation"
     | "Cultural"
     | "Adventure"
@@ -10,6 +8,13 @@ export type MockTour = {
     | "Nature"
     | "Historical"
     | "Sports";
+  label: string;
+};
+
+export type MockTour = {
+  id: number;
+  title: string;
+  type: TourType;
   location: string;
   price: number;
   duration: number;
@@ -17,9 +22,7 @@ export type MockTour = {
   image: string;
 };
 
-type MockTours = MockTour[];
-
-export const mockTours: MockTours = [
+export const mockTours: MockTour[] = [
   {
     id: 1,
     title: "تور کویر مرنجاب",
@@ -27,7 +30,7 @@ export const mockTours: MockTours = [
     price: 700000,
     duration: 2,
     guideAvailable: true,
-    type: "Adventure",
+    type: { value: "Adventure", label: "ماجراجویی" },
     image: "/images/maranjab-desert.jpg",
   },
   {
@@ -37,7 +40,7 @@ export const mockTours: MockTours = [
     price: 15000000,
     duration: 3,
     guideAvailable: true,
-    type: "Historical",
+    type: { value: "Historical", label: "تاریخی" },
     image: "/images/persepolis.jpg",
   },
   {
@@ -47,7 +50,7 @@ export const mockTours: MockTours = [
     price: 12000000,
     duration: 4,
     guideAvailable: false,
-    type: "Relaxation",
+    type: { value: "Relaxation", label: "آرامش" },
     image: "/images/chalus.jpg",
   },
   {
@@ -57,7 +60,7 @@ export const mockTours: MockTours = [
     price: 6000000,
     duration: 1,
     guideAvailable: true,
-    type: "Cultural",
+    type: { value: "Cultural", label: "فرهنگی" },
     image: "/images/tabriz-bazaar.jpg",
   },
   {
@@ -67,7 +70,7 @@ export const mockTours: MockTours = [
     price: 20000000,
     duration: 5,
     guideAvailable: true,
-    type: "Adventure",
+    type: { value: "Adventure", label: "ماجراجویی" },
     image: "/images/damavand.jpg",
   },
   {
@@ -77,7 +80,7 @@ export const mockTours: MockTours = [
     price: 25000000,
     duration: 7,
     guideAvailable: false,
-    type: "Relaxation",
+    type: { value: "Relaxation", label: "آرامش" },
     image: "/images/kish-island.jpg",
   },
   {
@@ -87,7 +90,7 @@ export const mockTours: MockTours = [
     price: 9000000,
     duration: 2,
     guideAvailable: true,
-    type: "Adventure",
+    type: { value: "Adventure", label: "ماجراجویی" },
     image: "/images/gilan-forest.jpg",
   },
   {
@@ -97,7 +100,7 @@ export const mockTours: MockTours = [
     price: 8000000,
     duration: 1,
     guideAvailable: false,
-    type: "Historical",
+    type: { value: "Historical", label: "تاریخی" },
     image: "/images/bam-citadel.jpg",
   },
   {
@@ -107,7 +110,7 @@ export const mockTours: MockTours = [
     price: 40000000,
     duration: 10,
     guideAvailable: true,
-    type: "Relaxation",
+    type: { value: "Luxury", label: "لوکس" },
     image: "/images/qeshm-island.jpg",
   },
   {
@@ -117,7 +120,7 @@ export const mockTours: MockTours = [
     price: 5000000,
     duration: 2,
     guideAvailable: true,
-    type: "Cultural",
+    type: { value: "Cultural", label: "فرهنگی" },
     image: "/images/nomad-tour.jpg",
   },
   {
@@ -127,7 +130,7 @@ export const mockTours: MockTours = [
     price: 17000000,
     duration: 3,
     guideAvailable: false,
-    type: "Adventure",
+    type: { value: "Adventure", label: "ماجراجویی" },
     image: "/images/alisadr-cave.jpg",
   },
   {
@@ -137,7 +140,7 @@ export const mockTours: MockTours = [
     price: 12000000,
     duration: 4,
     guideAvailable: true,
-    type: "Cultural",
+    type: { value: "Cultural", label: "فرهنگی" },
     image: "/images/isfahan-cultural.jpg",
   },
   {
@@ -147,7 +150,7 @@ export const mockTours: MockTours = [
     price: 3000000,
     duration: 2,
     guideAvailable: false,
-    type: "Relaxation",
+    type: { value: "Relaxation", label: "آرامش" },
     image: "/images/chabahar-beach.jpg",
   },
   {
@@ -157,7 +160,7 @@ export const mockTours: MockTours = [
     price: 10000000,
     duration: 1,
     guideAvailable: true,
-    type: "Historical",
+    type: { value: "Historical", label: "تاریخی" },
     image: "/images/si-o-se-pol.jpg",
   },
   {
@@ -167,7 +170,7 @@ export const mockTours: MockTours = [
     price: 35000000,
     duration: 7,
     guideAvailable: true,
-    type: "Adventure",
+    type: { value: "Adventure", label: "ماجراجویی" },
     image: "/images/loot-desert.jpg",
   },
   {
@@ -177,7 +180,7 @@ export const mockTours: MockTours = [
     price: 8000000,
     duration: 1,
     guideAvailable: false,
-    type: "Relaxation",
+    type: { value: "Relaxation", label: "آرامش" },
     image: "/images/zayandeh-rud.jpg",
   },
   {
@@ -187,7 +190,7 @@ export const mockTours: MockTours = [
     price: 11000000,
     duration: 3,
     guideAvailable: true,
-    type: "Cultural",
+    type: { value: "Cultural", label: "فرهنگی" },
     image: "/images/masuleh-village.jpg",
   },
   {
@@ -197,7 +200,7 @@ export const mockTours: MockTours = [
     price: 30000000,
     duration: 5,
     guideAvailable: false,
-    type: "Adventure",
+    type: { value: "Adventure", label: "ماجراجویی" },
     image: "/images/dizin-ski.jpg",
   },
 ];

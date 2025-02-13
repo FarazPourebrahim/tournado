@@ -1,26 +1,25 @@
 .card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-gray-100);
+  box-shadow: var(--shadow-400);
   transition:
     transform 0.3s,
     box-shadow 0.3s;
   cursor: pointer;
-  flex: 1 1 17em;
-  max-height: 28rem;
+  flex: 1 1;
+  max-width: 18rem;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-600);
   }
 
   .image {
-    width: 100%;
-    max-height: 180px;
+    inline-size: 100%;
+    max-height: 11.25rem;
     object-fit: cover;
   }
 
@@ -29,49 +28,43 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    height: 17rem;
-    justify-content: space-between;
 
     .title {
-      font-size: var(--fz-500);
+      font-size: var(--fz-450);
       font-weight: 700;
       margin: 0;
-    }
-
-    .location {
-      font-size: var(--fz-400);
-      color: var(--color-gray-30);
     }
 
     .details {
       display: flex;
       justify-content: space-between;
-      font-size: var(--fz-400);
+      font-size: var(--fz-300);
       color: var(--color-gray-40);
-
-      span {
-        display: inline-block;
-      }
     }
 
-    .type {
+    .bottom {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      inline-size: 5rem;
-      font-size: var(--fz-400);
-      color: var(--color-primary);
-      font-weight: 500;
-      padding: 0.5rem;
-      border-radius: 0.75rem;
-      background-color: var(--color-gray-94);
-    }
+      justify-content: space-between;
 
-    .price {
-      font-size: var(--fz-500);
-      font-weight: 700;
-      color: var(--color-primary-darker);
-      margin-block-start: 0.5rem;
+      .type {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        inline-size: 5rem;
+        font-size: var(--fz-200);
+        color: var(--color-primary);
+        font-weight: 500;
+        padding: 0.5rem;
+        border-radius: 0.75rem;
+        background-color: var(--color-gray-94);
+      }
+
+      .price {
+        font-size: var(--fz-450);
+        font-weight: 700;
+        color: var(--color-primary-darker);
+        margin-block-start: 0.5rem;
+      }
     }
   }
 }

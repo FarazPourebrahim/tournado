@@ -1,24 +1,14 @@
 import styles from "./Card.module.css";
 import Image from "next/image";
+import Link from "next/link";
 import { MockTour } from "@/mocks/mockTours";
 
-const typeToPersian: Record<MockTour["type"], string> = {
-  Adventure: "ماجراجویی",
-  Cultural: "فرهنگی",
-  Historical: "تاریخی",
-  Relaxation: "آرامش",
-  Luxury: "لوکس",
-  Family: "خانوادگی",
-  Nature: "طبیعت‌گردی",
-  Sports: "ورزشی",
-};
-
 export default function Card({ tour }: { tour: MockTour }) {
-  const { title, location, price, duration, guideAvailable, type, image } =
+  const { id, title, location, price, duration, guideAvailable, type, image } =
     tour;
 
   return (
-    <div className={styles.card}>
+    <Link href={`/tour/${id}`} className={styles.card}>
       <Image
         src={image}
         alt={title}
@@ -28,14 +18,18 @@ export default function Card({ tour }: { tour: MockTour }) {
       />
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.location}>{location}</p>
         <p className={styles.details}>
+          <span>{location}</span>
+          <span>/</span>
           <span>{duration} روز</span>
+          <span>/</span>
           <span>{guideAvailable ? "با راهنما" : "بدون راهنما"}</span>
         </p>
-        <p className={styles.type}>{typeToPersian[type]}</p>
-        <p className={styles.price}>{price.toLocaleString()} تومان</p>
+        <div className={styles.bottom}>
+          <p className={styles.price}>{price.toLocaleString()} تومان</p>
+          <p className={styles.type}>{type.label}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

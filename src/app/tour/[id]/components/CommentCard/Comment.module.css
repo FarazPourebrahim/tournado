@@ -1,0 +1,24 @@
+.comment {
+  background-color: var(--color-gray-100);
+  box-shadow: var(--shadow-500);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+
+  .comment-header {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-inline-end: 1rem;
+    }
+
+    .user {
+      font-weight: 700;
+      padding: 0.25rem;
+    }
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}

@@ -3,6 +3,8 @@ import styles from "./Recommended.module.css";
 import Link from "next/link";
 import { mockTours } from "@/mocks/mockTours";
 import Card from "@/components/Card/Card";
+import clsx from "clsx";
+import "@/styles/btn.css";
 
 export default function Recommended(): ReactElement {
   const getRandomIndexes = (count: number, max: number): number[] => {
@@ -14,23 +16,22 @@ export default function Recommended(): ReactElement {
     return Array.from(indexes);
   };
 
-  const randomIndexes = getRandomIndexes(3, mockTours.length);
+  const randomIndexes = getRandomIndexes(4, mockTours.length);
   const randomTours = randomIndexes.map((index) => mockTours[index]);
 
   return (
-    <div className={styles.recommended}>
-      <h3>یک ماجراجویی فراموش‌نشدنی در همین نزدیکی!</h3>
-      <div className={styles["random-recommendations"]}>
-        <Link href={"/search"} className={styles.more}>
-          ▶
+    <section className={styles.recommended}>
+      <div className={styles.header}>
+        <h3>یک ماجراجویی فراموش‌نشدنی در همین نزدیکی!</h3>
+        <Link href="/search" className={clsx(styles.more, "btn")}>
+          مشاهده تورها
         </Link>
+      </div>
+      <div className={styles["random-recommendations"]}>
         {randomTours.map((tour) => (
           <Card key={tour.id} tour={tour} />
         ))}
-        <Link href={"/search"} className={styles.more}>
-          ◀
-        </Link>
       </div>
-    </div>
+    </section>
   );
 }

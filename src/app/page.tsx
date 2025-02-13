@@ -8,10 +8,10 @@ import AdditionalInfo from "@/components/AdditionalInfo/AdditionalInfo";
 
 export default function Home(): ReactElement {
   return (
-    <div className={styles.home}>
+    <main className={styles.home}>
       <Hero />
       <Recommended />
       <AdditionalInfo />
-    </div>
+    </main>
   );
 }

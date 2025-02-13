@@ -13,19 +13,27 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Sort from "@/app/search/components/Sort/Sort";
 import Card from "@/components/Card/Card";
 
-function PageContent() {
-  const { sortedMockTours, handleSortChange, sortOption } = useTours();
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+type Props = {
+  searchParams: SearchParams;
+};
+
+function PageContent({ searchParams }: Props): React.ReactElement {
+  const query =
+    typeof searchParams.query === "string" ? searchParams.query : "";
+  const { sortedMockTours, handleSortChange, sortOption } = useTours(query);
 
   return (
     <div className={styles.page}>
-      <div className={styles.filters}>
+      <aside className={styles.filters}>
         <ResetButton />
         <TourTypeFilter />
         <PriceRangeFilter />
         <DurationFilter />
         <TourGuideFilter />
-      </div>
-      <div className={styles.main}>
+      </aside>
+      <main className={styles.main}>
         <SearchBox />
         <div className={styles["result-header"]}>
           <Sort selectedOption={sortOption} onSortChange={handleSortChange} />
@@ -36,15 +44,15 @@ function PageContent() {
             <Card key={tour.id} tour={tour} />
           ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
 
-export default function Page() {
+export default function Page({ searchParams }: Props): React.ReactElement {
   return (
     <FiltersProvider>
-      <PageContent />
+      <PageContent searchParams={searchParams} />
     </FiltersProvider>
   );
 }
