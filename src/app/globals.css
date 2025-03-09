@@ -12,6 +12,13 @@
   --color-gray-12: hsl(0deg 0% 12%);
   --color-gray-10: hsl(0deg 0% 10%);
 
+  --color-surface-300: var(--color-gray-90);
+  --color-surface-400: var(--color-gray-94);
+  --color-surface-700: var(--color-gray-98);
+
+  --color-text-400: var(--color-gray-10);
+  --color-text-700: var(--color-gray-40);
+
   --color-default-background: var(--color-gray-98);
   --color-default-foreground: var(--color-gray-10);
 
@@ -19,7 +26,7 @@
   --color-primary-fade: hsl(120deg 50% 96%);
   --color-primary-lighter: hsl(39, 100%, 56%);
   --color-primary-darker: hsl(39, 100%, 44%);
-  --color-primary-opposite: var(--color-gray-10);
+  --color-primary-opposite: var(--color-gray-98);
 
   --border-radius: 0.875rem;
 
