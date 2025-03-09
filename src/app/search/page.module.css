@@ -1,7 +1,7 @@
 .page {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 1rem;
+  grid-template-columns: 1fr 4fr;
+  gap: 2rem;
   margin-block-end: 1rem;
   align-items: start;
 
