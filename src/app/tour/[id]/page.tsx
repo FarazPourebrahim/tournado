@@ -2,10 +2,10 @@ import { ReactElement } from "react";
 import { MockTour, mockTours } from "@/mocks/mockTours";
 import { notFound } from "next/navigation";
 import styles from "./page.module.css";
-import Card from "@/components/Card/Card";
+import TourCard from "@/components/TourCard/TourCard";
 import Image from "next/image";
-import ReturnButton from "@/components/ReturnButton/ReturnButton";
 import TourDetails from "@/app/tour/[id]/components/TourDetails/TourDetails";
+import ReturnButton from "@/components/ReturnButton/ReturnButton";
 
 type Props = {
   params: { id: string };
@@ -53,7 +53,7 @@ export default function page({ params }: Props): ReactElement {
       <aside className={styles.recommended}>
         <h3 className={styles["recommended-header"]}>تورهای مشابه</h3>
         {randomTours.map((tour) => (
-          <Card key={tour.id} tour={tour} />
+          <TourCard key={tour.id} tour={tour} />
         ))}
       </aside>
     </div>

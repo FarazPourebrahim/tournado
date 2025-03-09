@@ -2,17 +2,13 @@
 
 import { ReactElement, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./ReturnButton.module.css";
-import clsx from "clsx";
-import "@/styles/btn.css";
+import { Button } from "@/components/Button/Button";
 
-interface ReturnButtonProps {
+type Props = {
   children: ReactNode;
-}
+};
 
-export default function ReturnButton({
-  children,
-}: ReturnButtonProps): ReactElement {
+export default function ReturnButton({ children }: Props): ReactElement {
   const router = useRouter();
 
   const handleClick = () => {
@@ -20,8 +16,8 @@ export default function ReturnButton({
   };
 
   return (
-    <button onClick={handleClick} className={clsx(styles.returnButton, "btn")}>
+    <Button variant={"primary"} shape={"outlined"} onClick={handleClick}>
       {children}
-    </button>
+    </Button>
   );
 }

@@ -11,7 +11,7 @@ import DurationFilter from "@/app/search/components/DurationFilter/DurationFilte
 import TourGuideFilter from "@/app/search/components/TourGuideFilter/TourGuideFilter";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Sort from "@/app/search/components/Sort/Sort";
-import Card from "@/components/Card/Card";
+import TourCard from "@/components/TourCard/TourCard";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
@@ -41,7 +41,7 @@ function PageContent({ searchParams }: Props): React.ReactElement {
         </div>
         <div className={styles.result}>
           {sortedMockTours.map((tour) => (
-            <Card key={tour.id} tour={tour} />
+            <TourCard key={tour.id} tour={tour} />
           ))}
         </div>
       </main>

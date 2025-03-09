@@ -1,10 +1,8 @@
 import { ReactElement } from "react";
 import styles from "./Recommended.module.css";
-import Link from "next/link";
 import { mockTours } from "@/mocks/mockTours";
-import Card from "@/components/Card/Card";
-import clsx from "clsx";
-import "@/styles/btn.css";
+import TourCard from "@/components/TourCard/TourCard";
+import { ButtonLink } from "@/components/Button/Button";
 
 export default function Recommended(): ReactElement {
   const getRandomIndexes = (count: number, max: number): number[] => {
@@ -23,13 +21,11 @@ export default function Recommended(): ReactElement {
     <section className={styles.recommended}>
       <div className={styles.header}>
         <h3>یک ماجراجویی فراموش‌نشدنی در همین نزدیکی!</h3>
-        <Link href="/search" className={clsx(styles.more, "btn")}>
-          مشاهده تورها
-        </Link>
+        <ButtonLink href="/search">مشاهده تورها</ButtonLink>
       </div>
       <div className={styles["random-recommendations"]}>
         {randomTours.map((tour) => (
-          <Card key={tour.id} tour={tour} />
+          <TourCard key={tour.id} tour={tour} />
         ))}
       </div>
     </section>
