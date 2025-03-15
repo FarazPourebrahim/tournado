@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactElement } from "react";
 
 import clsx from "clsx";
 
-import styles from "./card.module.css";
+import styles from "./Card.module.css";
 
 type Props = PropsWithChildren<{
   className?: string;
