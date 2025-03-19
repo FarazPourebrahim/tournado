@@ -3,6 +3,7 @@ import { SignUpDto } from "@/dto/auth";
 import prisma from "@/lib/prisma";
 import { ApiResponseType } from "@/types/api-response";
 import { parseBody, setAuthCookie, wrapWithTryCatch } from "@/utils/api";
+import { hashPassword } from "@/utils/bcrypt";
 
 export async function POST(request: Request): Promise<ApiResponseType<null>> {
   return wrapWithTryCatch(async () => {
@@ -31,7 +32,8 @@ export async function POST(request: Request): Promise<ApiResponseType<null>> {
       return NextResponse.json({ error: "ایمیل تکراری است." }, { status: 400 });
     }
 
-    await prisma.user.create({ data: body });
+    const hashedPassword = await hashPassword(body.password);
+    await prisma.user.create({ data: { ...body, password: hashedPassword } });
 
     await setAuthCookie();
 
