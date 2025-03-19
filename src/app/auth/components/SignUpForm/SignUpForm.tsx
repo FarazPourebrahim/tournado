@@ -1,28 +1,23 @@
 "use client";
 
 import { ReactElement, FormEvent, useRef } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
-
 import signUpImage from "@/assets/images/sign-up.webp";
-
 import { Button } from "@/components/Button/Button";
 import Card from "@/components/Card/Card";
-import NormalInputComponent from "@/components/NormalInput/NormalInput";
-import PasswordInputComponent from "@/components/PasswordInput/PasswordInput";
-
+import NormalInput from "@/components/NormalInput/NormalInput";
+import PasswordInput from "@/components/PasswordInput/PasswordInput";
 import { SignUpDto } from "@/dto/auth";
-
 import MingcuteIncognitoModeLine from "@/icons/MingcuteIncognitoModeLine";
 import MingcuteUser3Line from "@/icons/MingcuteUser3Line";
 import MingcuteMailLine from "@/icons/MingcuteMailLine";
-
 import { fetchWithToast } from "@/utils/fetch";
-
 import styles from "@/app/auth/styles/auth-form.module.css";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm(): ReactElement {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const formSubmitHandler = async (
     e: FormEvent<HTMLFormElement>,
@@ -52,6 +47,7 @@ export default function SignUpForm(): ReactElement {
     }
 
     formRef.current?.reset();
+    router.push("/dashboard");
   };
 
   return (
@@ -61,25 +57,25 @@ export default function SignUpForm(): ReactElement {
           <div className={styles.writings}>
             <h1>ثبت‌نام!</h1>
             <form ref={formRef} onSubmit={formSubmitHandler}>
-              <NormalInputComponent
+              <NormalInput
                 label="نام و نام خانوادگی"
                 type="text"
                 name="name"
                 prefixIcon={<MingcuteIncognitoModeLine />}
               />
-              <NormalInputComponent
+              <NormalInput
                 label="نام کاربری"
                 type="text"
                 name="username"
                 prefixIcon={<MingcuteUser3Line />}
               />
-              <NormalInputComponent
+              <NormalInput
                 label="ایمیل"
                 type="email"
                 name="email"
                 prefixIcon={<MingcuteMailLine />}
               />
-              <PasswordInputComponent
+              <PasswordInput
                 label="رمز عبور"
                 name="password"
                 autoComplete="new-password"

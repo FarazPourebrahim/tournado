@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { ApiResponseType } from "@/types/api-response";
+import * as jose from "jose";
+import { cookies } from "next/headers";
 
 type ParseBodyResult<T> = [error: null, data: T] | [error: string, data: null];
+
+const alg = "HS256";
+const secret = new TextEncoder().encode(process.env.TOKEN_SECRET);
 
 export async function parseBody<T>(
   request: Request,
@@ -40,4 +45,21 @@ export async function wrapWithTryCatch<T>(
       { status: 500 },
     );
   }
+}
+
+export async function setAuthCookie(): Promise<void> {
+  const cookieStore = cookies();
+
+  const token = await new jose.SignJWT()
+    .setProtectedHeader({ alg })
+    .setIssuedAt()
+    .setExpirationTime("3d")
+    .sign(secret);
+
+  cookieStore.set(process.env.TOKEN_KEY!, token, {
+    secure: true,
+    httpOnly: true,
+    sameSite: "none",
+    maxAge: 3 * 24 * 3600,
+  });
 }

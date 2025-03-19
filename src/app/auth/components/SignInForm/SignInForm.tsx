@@ -6,14 +6,16 @@ import Link from "next/link";
 import signInImage from "@/assets/images/sign-in.webp";
 import { Button } from "@/components/Button/Button";
 import Card from "@/components/Card/Card";
-import NormalInputComponent from "@/components/NormalInput/NormalInput";
-import PasswordInputComponent from "@/components/PasswordInput/PasswordInput";
+import NormalInput from "@/components/NormalInput/NormalInput";
+import PasswordInput from "@/components/PasswordInput/PasswordInput";
 import { SignInDto } from "@/dto/auth";
 import MingcuteUser3Line from "@/icons/MingcuteUser3Line";
 import { fetchWithToast } from "@/utils/fetch";
 import styles from "@/app/auth/styles/auth-form.module.css";
+import { useRouter } from "next/navigation";
 
 export default function SignInForm(): ReactElement {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const formSubmitHandler = async (
     e: FormEvent<HTMLFormElement>,
@@ -40,6 +42,7 @@ export default function SignInForm(): ReactElement {
     }
 
     formRef.current?.reset();
+    router.push("/dashboard");
   };
 
   return (
@@ -49,13 +52,13 @@ export default function SignInForm(): ReactElement {
           <div className={styles.writings}>
             <h1>ورود!</h1>
             <form ref={formRef} onSubmit={formSubmitHandler}>
-              <NormalInputComponent
+              <NormalInput
                 label="نام کاربری"
                 type="text"
                 name="username"
                 prefixIcon={<MingcuteUser3Line />}
               />
-              <PasswordInputComponent
+              <PasswordInput
                 label="رمز عبور"
                 name="password"
                 autoComplete="current-password"
