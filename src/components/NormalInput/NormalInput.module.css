@@ -43,13 +43,7 @@
 
   &:where(:has(input:not(:placeholder-shown))) {
     .box {
-      color: var(--color-text-400);
-    }
-  }
-
-  &:where(:has(input:not(:placeholder-shown))) {
-    .box {
-      color: var(--color-text-400);
+      color: var(--color-primary);
     }
   }
 
