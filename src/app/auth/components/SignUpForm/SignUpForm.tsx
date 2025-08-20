@@ -31,6 +31,8 @@ export default function SignUpForm(): ReactElement {
       username: formData.get("username") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,
+      createdAt: Date.now() as unknown as Date,
+      updatedAt: Date.now() as unknown as Date,
     };
 
     const result = await fetchWithToast<null>(
