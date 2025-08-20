@@ -1,7 +1,7 @@
 import { FormEvent, ReactElement, useEffect, useState } from "react";
 
-import { Button } from "@/components/button/Button";
-import CardComponent from "@/components/card/Card";
+import { Button } from "@/components/Button/Button";
+import CardComponent from "@/components/Card/Card";
 import NormalInput from "@/components/NormalInput/NormalInput";
 import PasswordInput from "@/components/PasswordInput/PasswordInput";
 
@@ -59,7 +59,7 @@ export default function ProfileFormComponent(): ReactElement {
   };
 
   if (status === "pending") {
-    return "Loading...";
+    return <h1>Loading...</h1>;
   }
 
   if (status === "error") {
