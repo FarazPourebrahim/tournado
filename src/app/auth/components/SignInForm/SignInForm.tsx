@@ -42,7 +42,7 @@ export default function SignInForm(): ReactElement {
     }
 
     formRef.current?.reset();
-    router.push("/dashboard");
+    router.push("/dashboard/profile");
   };
 
   return (

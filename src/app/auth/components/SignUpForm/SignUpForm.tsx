@@ -47,7 +47,7 @@ export default function SignUpForm(): ReactElement {
     }
 
     formRef.current?.reset();
-    router.push("/dashboard");
+    router.push("/dashboard/profile");
   };
 
   return (
