@@ -7,9 +7,9 @@ import ProfileFormComponent from "@/app/dashboard/components/profile-form/Profil
 import styles from "./page.module.css";
 
 export default function Page(): ReactElement {
-    return (
-        <div className={styles.page}>
-            <ProfileFormComponent />
-        </div>
-    );
+  return (
+    <div className={styles.page}>
+      <ProfileFormComponent />
+    </div>
+  );
 }

@@ -71,7 +71,7 @@ export async function removeAuthCookie(): Promise<void> {
 }
 
 export async function extractUserId(
-    request: NextRequest,
+  request: NextRequest,
 ): Promise<string | null> {
   const token = request.cookies.get(process.env.TOKEN_KEY!)?.value;
 

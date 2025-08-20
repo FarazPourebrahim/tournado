@@ -13,70 +13,70 @@ import { extractUserId, parseBody, wrapWithTryCatch } from "@/utils/api";
 import { hashPassword } from "@/utils/bcrypt";
 
 export async function GET(
-    request: NextRequest,
+  request: NextRequest,
 ): Promise<ApiResponseType<SafeUserType>> {
-    return wrapWithTryCatch(async () => {
-        const foundUser = await findUser(request);
+  return wrapWithTryCatch(async () => {
+    const foundUser = await findUser(request);
 
-        if (!foundUser) {
-            return NextResponse.json(
-                { error: "ابتدا وارد حساب کاربری خود شوید." },
-                { status: 401 },
-            );
-        }
+    if (!foundUser) {
+      return NextResponse.json(
+        { error: "ابتدا وارد حساب کاربری خود شوید." },
+        { status: 401 },
+      );
+    }
 
-        const { id, password, ...safeUser } = foundUser;
+    const { id, password, ...safeUser } = foundUser;
 
-        return NextResponse.json({ data: safeUser }, { status: 200 });
-    });
+    return NextResponse.json({ data: safeUser }, { status: 200 });
+  });
 }
 
 export async function PATCH(
-    request: NextRequest,
+  request: NextRequest,
 ): Promise<ApiResponseType<null>> {
-    return wrapWithTryCatch(async () => {
-        const [parseError, body] = await parseBody<EditProfileDto>(request);
+  return wrapWithTryCatch(async () => {
+    const [parseError, body] = await parseBody<EditProfileDto>(request);
 
-        if (parseError !== null) {
-            return NextResponse.json({ error: parseError }, { status: 400 });
-        }
+    if (parseError !== null) {
+      return NextResponse.json({ error: parseError }, { status: 400 });
+    }
 
-        const foundUser = await findUser(request);
+    const foundUser = await findUser(request);
 
-        if (!foundUser) {
-            return NextResponse.json(
-                { error: "ابتدا وارد حساب کاربری خود شوید." },
-                { status: 401 },
-            );
-        }
+    if (!foundUser) {
+      return NextResponse.json(
+        { error: "ابتدا وارد حساب کاربری خود شوید." },
+        { status: 401 },
+      );
+    }
 
-        if (body.password) {
-            body.password = await hashPassword(body.password);
-        }
+    if (body.password) {
+      body.password = await hashPassword(body.password);
+    }
 
-        await prisma.user.update({
-            where: { id: foundUser.id },
-            data: body,
-        });
-
-        return NextResponse.json({ data: null }, { status: 200 });
+    await prisma.user.update({
+      where: { id: foundUser.id },
+      data: body,
     });
+
+    return NextResponse.json({ data: null }, { status: 200 });
+  });
 }
 
 async function findUser(request: NextRequest): Promise<Prisma.User | null> {
-    const userId = await extractUserId(request);
+  const userId = await extractUserId(request);
 
-    if (!userId) {
-        return null;
-    }
+  if (!userId) {
+    return null;
+  }
 
-    const foundUser = await prisma.user.findUnique({
-        where: { id: userId },
-    });
+  const foundUser = await prisma.user.findUnique({
+    where: { id: userId },
+  });
 
-    if (!foundUser) {
-        return null;
-    }
+  if (!foundUser) {
+    return null;
+  }
 
-    return foundUser;
+  return foundUser;
 }
