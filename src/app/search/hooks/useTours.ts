@@ -1,57 +1,90 @@
-import { useContext, useMemo, useState } from "react";
-import { FiltersContext } from "@/app/search/providers/filters/filters.provider";
-import { mockTours } from "@/mocks/mockTours";
+"use client"
+
+import { useContext, useMemo, useState, useEffect } from "react"
+import { FiltersContext } from "@/app/search/providers/filters/filters.provider"
+import type { Tour } from "@/types/tour.type"
 
 export function useTours(query: string) {
-  const { filters } = useContext(FiltersContext);
+  const { filters } = useContext(FiltersContext)
+  const [tours, setTours] = useState<Tour[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [sortOption, setSortOption] = useState({
     label: "قیمت (کم به زیاد)",
     value: "price-asc",
-  });
+  })
 
   const handleSortChange = (option: { value: string; label: string }) => {
-    setSortOption(option);
-  };
+    setSortOption(option)
+  }
 
-  const filteredMockTours = useMemo(() => {
-    return mockTours.filter((item) => {
-      const matchesQuery = query
-        ? item.title.toLowerCase().includes(query.toLowerCase())
-        : true;
+  const fetchTours = async () => {
+    setLoading(true)
+    setError(null)
 
-      return (
-        matchesQuery &&
-        (filters.type === "All" || filters.type.includes(item.type.value)) &&
-        item.price >= filters.min &&
-        item.price <= filters.max &&
-        (!filters.isGuideMandatory ||
-          (filters.isGuideMandatory && item.guideAvailable)) &&
-        item.duration >= filters.duration[0] &&
-        item.duration <= filters.duration[1]
-      );
-    });
-  }, [filters, query]);
+    try {
+      const searchParams = new URLSearchParams()
 
-  const sortedMockTours = useMemo(() => {
-    return [...filteredMockTours].sort((a, b) => {
+      if (query) searchParams.append("search", query)
+      if (filters.type !== "All" && Array.isArray(filters.type)) {
+        filters.type.forEach((type) => searchParams.append("type", type))
+      }
+      if (filters.min) searchParams.append("minPrice", filters.min.toString())
+      if (filters.max) searchParams.append("maxPrice", filters.max.toString())
+      if (filters.duration) {
+        searchParams.append("minDuration", filters.duration[0].toString())
+        searchParams.append("maxDuration", filters.duration[1].toString())
+      }
+      if (filters.isGuideMandatory) {
+        searchParams.append("guideAvailable", "true")
+      }
+
+      const response = await fetch(`/api/tours?${searchParams.toString()}`)
+
+      if (!response.ok) {
+        throw new Error("خطا در دریافت تورها")
+      }
+
+      const data = await response.json()
+
+      if (data.error) {
+        throw new Error(data.error)
+      }
+
+      setTours(data.data.tours)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "خطای غیرمنتظره")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchTours()
+  }, [filters, query])
+
+  const sortedTours = useMemo(() => {
+    return [...tours].sort((a, b) => {
       switch (sortOption.value) {
         case "price-asc":
-          return a.price - b.price;
+          return a.price - b.price
         case "price-desc":
-          return b.price - a.price;
+          return b.price - a.price
         case "duration-asc":
-          return a.duration - b.duration;
+          return a.duration - b.duration
         case "duration-desc":
-          return b.duration - a.duration;
+          return b.duration - a.duration
         default:
-          return 0;
+          return 0
       }
-    });
-  }, [filteredMockTours, sortOption]);
+    })
+  }, [tours, sortOption])
 
   return {
-    sortedMockTours,
+    sortedMockTours: sortedTours,
     handleSortChange,
     sortOption,
-  };
+    loading,
+    error,
+  }
 }

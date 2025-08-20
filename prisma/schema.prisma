@@ -19,4 +19,47 @@ model User {
   username String @unique
   email String @unique
   password String
+  comments Comment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tour {
+  id String @id @default(uuid())
+  title String
+  type String
+  typeLabel String
+  location String
+  price Int
+  duration Int
+  guideAvailable Boolean
+  image String
+  description String @db.Text
+  highlights String[]
+  itinerary Json
+  included String[]
+  excluded String[]
+  requirements String[]
+  maxCapacity Int
+  difficulty String
+  bestTime String
+  transportation String
+  accommodation String
+  comments Comment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id String @id @default(uuid())
+  content String @db.Text
+  userId String
+  tourId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tourId])
+  @@index([userId])
 }

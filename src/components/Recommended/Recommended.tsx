@@ -1,33 +1,57 @@
-import { ReactElement } from "react";
-import styles from "./Recommended.module.css";
-import { mockTours } from "@/mocks/mockTours";
-import TourCard from "@/components/TourCard/TourCard";
-import { ButtonLink } from "@/components/Button/Button";
+"use client"
+
+import { type ReactElement, useEffect, useState } from "react"
+import styles from "./Recommended.module.css"
+import TourCard from "@/components/TourCard/TourCard"
+import { ButtonLink } from "@/components/Button/Button"
+import type { Tour } from "@/types/tour.type"
 
 export default function Recommended(): ReactElement {
-  const getRandomIndexes = (count: number, max: number): number[] => {
-    const indexes = new Set<number>();
-    while (indexes.size < count) {
-      const randomIndex = Math.floor(Math.random() * max);
-      indexes.add(randomIndex);
+    const [randomTours, setRandomTours] = useState<Tour[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchRandomTours = async () => {
+            try {
+                const response = await fetch("/api/tours?limit=20")
+                const data = await response.json()
+
+                if (data.data?.tours) {
+                    // Get 4 random tours
+                    const shuffled = [...data.data.tours].sort(() => 0.5 - Math.random())
+                    setRandomTours(shuffled.slice(0, 4))
+                }
+            } catch (error) {
+                console.error("Error fetching tours:", error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchRandomTours()
+    }, [])
+
+    if (loading) {
+        return (
+            <section className={styles.recommended}>
+                <div className={styles.header}>
+                    <h3>در حال بارگذاری...</h3>
+                </div>
+            </section>
+        )
     }
-    return Array.from(indexes);
-  };
 
-  const randomIndexes = getRandomIndexes(4, mockTours.length);
-  const randomTours = randomIndexes.map((index) => mockTours[index]);
-
-  return (
-    <section className={styles.recommended}>
-      <div className={styles.header}>
-        <h3>یک ماجراجویی فراموش‌نشدنی در همین نزدیکی!</h3>
-        <ButtonLink href="/search">مشاهده تورها</ButtonLink>
-      </div>
-      <div className={styles["random-recommendations"]}>
-        {randomTours.map((tour) => (
-          <TourCard key={tour.id} tour={tour} />
-        ))}
-      </div>
-    </section>
-  );
+    return (
+        <section className={styles.recommended}>
+            <div className={styles.header}>
+                <h3>یک ماجراجویی فراموش‌نشدنی در همین نزدیکی!</h3>
+                <ButtonLink href="/search">مشاهده تورها</ButtonLink>
+            </div>
+            <div className={styles["random-recommendations"]}>
+                {randomTours.map((tour) => (
+                    <TourCard key={tour.id} tour={tour} />
+                ))}
+            </div>
+        </section>
+    )
 }

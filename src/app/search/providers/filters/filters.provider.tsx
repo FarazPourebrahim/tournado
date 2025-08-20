@@ -1,25 +1,15 @@
-"use client";
+"use client"
 
-import {
-  createContext,
-  PropsWithChildren,
-  ReactElement,
-  useState,
-  useMemo,
-} from "react";
-import { FiltersType } from "@/app/search/types/filters.type";
-import { mockTours } from "@/mocks/mockTours";
+import { createContext, type PropsWithChildren, type ReactElement, useState, useMemo, useEffect } from "react"
+import type { FiltersType } from "@/app/search/types/filters.type"
 
 type ContextValue = {
-  filters: FiltersType;
-  initialFilters: FiltersType;
-  changeFilter: <TKey extends keyof FiltersType>(
-    key: TKey,
-    value: FiltersType[TKey],
-  ) => void;
-  removeFilter: <TKey extends keyof FiltersType>(key: TKey) => void;
-  clearAll: () => void;
-};
+  filters: FiltersType
+  initialFilters: FiltersType
+  changeFilter: <TKey extends keyof FiltersType>(key: TKey, value: FiltersType[TKey]) => void
+  removeFilter: <TKey extends keyof FiltersType>(key: TKey) => void
+  clearAll: () => void
+}
 
 export const FiltersContext = createContext<ContextValue>({
   filters: {
@@ -39,51 +29,74 @@ export const FiltersContext = createContext<ContextValue>({
   changeFilter: () => {},
   removeFilter: () => {},
   clearAll: () => {},
-});
+})
 
-type Props = PropsWithChildren;
+type Props = PropsWithChildren
 
 export default function FiltersProvider({ children }: Props): ReactElement {
-  const minPrice = Math.min(...mockTours.map((tour) => tour.price));
-  const maxPrice = Math.max(...mockTours.map((tour) => tour.price));
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 50000000 })
+
+  useEffect(() => {
+    const fetchPriceRange = async () => {
+      try {
+        const response = await fetch("/api/tours?limit=1000")
+        const data = await response.json()
+
+        if (data.data?.tours) {
+          const prices = data.data.tours.map((tour: any) => tour.price)
+          const minPrice = Math.min(...prices)
+          const maxPrice = Math.max(...prices)
+          setPriceRange({ min: minPrice, max: maxPrice })
+        }
+      } catch (error) {
+        console.error("Error fetching price range:", error)
+      }
+    }
+
+    fetchPriceRange()
+  }, [])
 
   const initialFilters: FiltersType = useMemo(
-    () => ({
-      min: minPrice,
-      max: maxPrice,
-      type: "All",
-      isGuideMandatory: false,
-      duration: [1, 30],
-    }),
-    [minPrice, maxPrice],
-  );
+      () => ({
+        min: priceRange.min,
+        max: priceRange.max,
+        type: "All",
+        isGuideMandatory: false,
+        duration: [1, 30],
+      }),
+      [priceRange.min, priceRange.max],
+  )
 
-  const [filters, setFilters] = useState<FiltersType>(initialFilters);
+  const [filters, setFilters] = useState<FiltersType>(initialFilters)
 
-  const changeFilter = <TKey extends keyof FiltersType>(
-    key: TKey,
-    value: FiltersType[TKey],
-  ): void => {
-    setFilters((old) => ({ ...old, [key]: value }));
-  };
+  // Update filters when price range changes
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      min: priceRange.min,
+      max: priceRange.max,
+    }))
+  }, [priceRange])
+
+  const changeFilter = <TKey extends keyof FiltersType>(key: TKey, value: FiltersType[TKey]): void => {
+    setFilters((old) => ({ ...old, [key]: value }))
+  }
 
   const removeFilter = <TKey extends keyof FiltersType>(key: TKey): void => {
     setFilters((old) => {
-      const clone = { ...old };
-      delete clone[key];
-      return clone;
-    });
-  };
+      const clone = { ...old }
+      delete clone[key]
+      return clone
+    })
+  }
 
   const clearAll = (): void => {
-    setFilters(initialFilters);
-  };
+    setFilters(initialFilters)
+  }
 
   return (
-    <FiltersContext.Provider
-      value={{ filters, initialFilters, changeFilter, removeFilter, clearAll }}
-    >
-      {children}
-    </FiltersContext.Provider>
-  );
+      <FiltersContext.Provider value={{ filters, initialFilters, changeFilter, removeFilter, clearAll }}>
+        {children}
+      </FiltersContext.Provider>
+  )
 }
