@@ -1,0 +1,77 @@
+.filter {
+  padding: 1rem;
+
+  .label {
+    font-size: var(--fz-500);
+    font-weight: 700;
+    margin-block-end: 1rem;
+  }
+
+  .rangeSections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .rangeSection {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .inputRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .inputLabel {
+        font-size: var(--fz-400);
+      }
+
+      .input {
+        width: 100%;
+        max-width: 7rem;
+        padding: 0.5rem;
+        font-size: var(--fz-400);
+        border: 1px solid var(--color-gray-80);
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      .slider {
+        width: 100%;
+        appearance: none;
+        background-color: var(--color-gray-90);
+        height: 5px;
+        border-radius: 5px;
+        outline: none;
+
+        &::-webkit-slider-thumb {
+          appearance: none;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: var(--color-primary);
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+
+        &::-moz-range-thumb {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: var(--color-primary);
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+      }
+    }
+  }
+
+  .selectedRange {
+    font-size: var(--fz-400);
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-block-start: 1rem;
+    text-align: center;
+  }
+}

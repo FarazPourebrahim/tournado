@@ -1,0 +1,32 @@
+.details {
+  .tabs {
+    display: flex;
+    margin-inline-start: 2rem;
+    margin-block: 1rem;
+
+    .button {
+      background-color: transparent;
+      color: var(--color-gray-30);
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: var(--fz-400);
+      cursor: pointer;
+      transition: 0.3s ease;
+      transition-property: opacity, transform;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    .active {
+      color: var(--color-primary);
+      border-bottom: 3px solid var(--color-primary-lighter);
+      font-weight: 700;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+}

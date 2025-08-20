@@ -1,0 +1,27 @@
+.resetButton {
+  margin: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-gray-98);
+  border: none;
+  padding: 0.5rem;
+  font-size: var(--fz-400);
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: 0.3s ease;
+  transition-property: opacity, transform;
+
+  &:hover {
+    background-color: var(--color-primary-lighter);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.disabled {
+    background-color: var(--color-gray-90);
+    opacity: 0.8;
+    color: var(--color-gray-30);
+    cursor: not-allowed;
+  }
+}

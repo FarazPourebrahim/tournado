@@ -7,8 +7,10 @@
 
   padding-inline: 1rem;
 
-  border: 1px solid var(--color-gray-20);
+  border: 1px solid var(--color-gray-80);
   border-radius: 999rem;
+
+  background-color: var(--color-gray-100);
 
   .prefix {
     display: grid;

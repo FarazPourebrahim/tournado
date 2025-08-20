@@ -1,0 +1,54 @@
+.additional-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-block-start: 10rem;
+  gap: 10rem;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    span {
+      color: var(--color-primary);
+    }
+
+    h4 {
+      font-size: var(--fz-700);
+    }
+
+    p {
+      font-size: var(--fz-450);
+      text-align: right;
+      max-width: 40ch;
+    }
+  }
+
+  .image {
+    .circle {
+      height: 15rem;
+      width: 15rem;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      position: relative;
+      z-index: -1;
+      bottom: 6rem;
+      right: 4rem;
+    }
+    .small-circle {
+      height: 10rem;
+      width: 10rem;
+      border-radius: 50%;
+      background-color: var(--color-primary-lighter);
+      position: relative;
+      z-index: -2;
+      bottom: 10rem;
+      right: 14rem;
+    }
+    img {
+      position: relative;
+      z-index: 1;
+      margin-block-start: -1000rem;
+    }
+  }
+}

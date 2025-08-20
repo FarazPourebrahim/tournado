@@ -1,0 +1,9 @@
+.overview {
+  padding: 1rem 2rem;
+
+  .detail {
+    .label {
+      font-weight: 700;
+    }
+  }
+}

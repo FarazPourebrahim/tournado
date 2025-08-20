@@ -1,21 +1,17 @@
 import { ReactElement } from "react";
 
-import SearchBox from "@/components/SearchBox/SearchBox";
+import Hero from "@/components/Hero/Hero";
+import Recommended from "@/components/Recommended/Recommended";
 
 import styles from "./page.module.css";
+import AdditionalInfo from "@/components/AdditionalInfo/AdditionalInfo";
 
 export default function Home(): ReactElement {
   return (
-    <div className={styles.home}>
-      <h1>تورنیدو</h1>
-      <SearchBox />
-      <div className={styles.history}>
-        <div className={styles.title}>آخرین جستجوهای شما</div>
-        <ul>
-          <li>رامسر</li>
-          <li>مازندران</li>
-        </ul>
-      </div>
-    </div>
+    <main className={styles.home}>
+      <Hero />
+      <Recommended />
+      <AdditionalInfo />
+    </main>
   );
 }

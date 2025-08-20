@@ -1,0 +1,36 @@
+.page {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+  margin-block-end: 1rem;
+  align-items: start;
+
+  .filters {
+    background-color: var(--color-gray-100);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-400);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .main {
+    .result-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-block-start: 1rem;
+    }
+    .count {
+      margin-block-start: 1rem;
+      background-color: transparent;
+    }
+    .result {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1rem;
+      margin-block: 1rem;
+    }
+  }
+}
