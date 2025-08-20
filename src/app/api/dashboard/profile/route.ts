@@ -6,7 +6,7 @@ import { EditProfileDto } from "@/dto/edit-profile.dto";
 
 import prisma from "@/lib/prisma";
 
-import { ApiResponseType } from "@/types/api-response.type";
+import { ApiResponseType } from "@/types/api-response";
 import { SafeUserType } from "@/types/safe-user.type";
 
 import { extractUserId, parseBody, wrapWithTryCatch } from "@/utils/api";
