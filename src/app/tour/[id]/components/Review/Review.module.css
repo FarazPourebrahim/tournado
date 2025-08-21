@@ -1,5 +1,74 @@
 .section {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Added comment form styles */
+.comment-form {
+  background-color: var(--color-gray-100);
+  box-shadow: var(--shadow-500);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+}
+
+.form-title {
+  font-size: var(--fz-500);
+  font-weight: 700;
+  color: var(--color-text-400);
+  margin: 0;
+}
+
+.textarea {
+  background-color: var(--color-surface-700);
+  border: 2px solid var(--color-surface-300);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  font-size: var(--fz-400);
+  color: var(--color-text-400);
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color var(--animation-duration-fast) ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  &::placeholder {
+    color: var(--color-text-700);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.submit-button {
+  align-self: flex-start;
+}
+
+.separator {
+  height: 1px;
+  background-color: var(--color-surface-300);
+  margin: 0.5rem 0;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.no-comments {
+  text-align: center;
+  color: var(--color-text-700);
+  font-size: var(--fz-400);
+  padding: 2rem;
+  background-color: var(--color-surface-700);
+  border-radius: var(--border-radius);
 }
