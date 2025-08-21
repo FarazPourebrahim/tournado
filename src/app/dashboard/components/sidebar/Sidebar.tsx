@@ -1,25 +1,26 @@
-"use client";
+"use client"
 
-import { ReactElement } from "react";
+import type { ReactElement } from "react"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-import clsx from "clsx";
+import clsx from "clsx"
 
-import SignOutButtonComponent from "@/app/dashboard/components/sign-out-button/SignOutButton";
+import SignOutButtonComponent from "@/app/dashboard/components/sign-out-button/SignOutButton"
 
-import MingcuteCalendar2Line from "@/icons/MingcuteCalendar2Line";
-import MingcuteHandHeartLine from "@/icons/MingcuteHandHeartLine";
-import MingcuteUser3Line from "@/icons/MingcuteUser3Line";
+import MingcuteCalendar2Line from "@/icons/MingcuteCalendar2Line"
+import MingcuteHandHeartLine from "@/icons/MingcuteHandHeartLine"
+import MingcuteUser3Line from "@/icons/MingcuteUser3Line"
+import MingcutePlus from "@/icons/MingcutePlus"
 
-import styles from "./Sidebar.module.css";
+import styles from "./Sidebar.module.css"
 
 type NavItem = {
-  title: string;
-  href: string;
-  icon: ReactElement;
-};
+  title: string
+  href: string
+  icon: ReactElement
+}
 
 const items: NavItem[] = [
   {
@@ -37,32 +38,31 @@ const items: NavItem[] = [
     href: "/dashboard/bookmarks",
     icon: <MingcuteHandHeartLine />,
   },
-];
+  {
+    title: "ایجاد تور جدید",
+    href: "/dashboard/new-tour",
+    icon: <MingcutePlus />,
+  },
+]
 
 export default function SidebarComponent(): ReactElement {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
-    <aside className={styles.sidebar}>
-      <nav aria-label="Pages in Dashboard">
-        <ul>
-          {items.map((item) => (
-            <li
-              key={item.title}
-              className={clsx(
-                styles.item,
-                pathname === item.href && styles.active,
-              )}
-            >
-              <Link href={item.href}>
-                {item.icon}
-                {item.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <SignOutButtonComponent className={styles.item} />
-    </aside>
-  );
+      <aside className={styles.sidebar}>
+        <nav aria-label="Pages in Dashboard">
+          <ul>
+            {items.map((item) => (
+                <li key={item.title} className={clsx(styles.item, pathname === item.href && styles.active)}>
+                  <Link href={item.href}>
+                    {item.icon}
+                    {item.title}
+                  </Link>
+                </li>
+            ))}
+          </ul>
+        </nav>
+        <SignOutButtonComponent className={styles.item} />
+      </aside>
+  )
 }

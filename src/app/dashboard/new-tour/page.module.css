@@ -1,0 +1,23 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-default-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    font-size: 1.125rem;
+    color: var(--color-text-700);
+    line-height: 1.6;
+}
