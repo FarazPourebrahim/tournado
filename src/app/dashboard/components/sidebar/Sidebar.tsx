@@ -13,6 +13,7 @@ import MingcuteCalendar2Line from "@/icons/MingcuteCalendar2Line"
 import MingcuteHandHeartLine from "@/icons/MingcuteHandHeartLine"
 import MingcuteUser3Line from "@/icons/MingcuteUser3Line"
 import MingcutePlus from "@/icons/MingcutePlus"
+import MingcuteLocationLine from "@/icons/MingcuteLocationLine"
 
 import styles from "./Sidebar.module.css"
 
@@ -29,19 +30,14 @@ const items: NavItem[] = [
     icon: <MingcuteUser3Line />,
   },
   {
-    title: "نوبت‌های من",
-    href: "/dashboard/appointments",
-    icon: <MingcuteCalendar2Line />,
-  },
-  {
-    title: "لیست پزشکان من",
-    href: "/dashboard/bookmarks",
-    icon: <MingcuteHandHeartLine />,
-  },
-  {
     title: "ایجاد تور جدید",
     href: "/dashboard/new-tour",
     icon: <MingcutePlus />,
+  },
+  {
+    title: "تور های من",
+    href: "/dashboard/my-tours",
+    icon: <MingcuteLocationLine />,
   },
 ]
 

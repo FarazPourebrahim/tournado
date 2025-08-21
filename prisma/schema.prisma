@@ -14,49 +14,54 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  name String
-  username String @unique
-  email String @unique
-  password String
-  comments Comment[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id        String    @id @default(uuid())
+  name      String
+  username  String    @unique
+  email     String    @unique
+  password  String
+  comments  Comment[]
+  tours     Tour[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
 model Tour {
-  id String @id @default(uuid())
-  title String
-  type String
-  typeLabel String
-  location String
-  price Int
-  duration Int
+  id             String    @id @default(uuid())
+  title          String
+  type           String
+  typeLabel      String
+  location       String
+  price          Int
+  duration       Int
   guideAvailable Boolean
-  image String
-  description String @db.Text
-  highlights String[]
-  itinerary Json
-  included String[]
-  excluded String[]
-  requirements String[]
-  maxCapacity Int
-  difficulty String
-  bestTime String
+  image          String
+  description    String    @db.Text
+  highlights     String[]
+  itinerary      Json
+  included       String[]
+  excluded       String[]
+  requirements   String[]
+  maxCapacity    Int
+  difficulty     String
+  bestTime       String
   transportation String
-  accommodation String
-  comments Comment[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  accommodation  String
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments       Comment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
 }
 
 model Comment {
-  id String @id @default(uuid())
-  content String @db.Text
-  userId String
-  tourId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  content   String   @db.Text
+  userId    String
+  tourId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

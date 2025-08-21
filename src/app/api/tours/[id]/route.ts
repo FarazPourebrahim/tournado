@@ -59,6 +59,10 @@ export async function PATCH(request: NextRequest, { params }: RouteParams): Prom
             return NextResponse.json({ error: "تور مورد نظر پیدا نشد." }, { status: 404 })
         }
 
+        if (existingTour.userId !== userId) {
+            return NextResponse.json({ error: "شما مجاز به ویرایش این تور نیستید." }, { status: 403 })
+        }
+
         const updatedTour = await prisma.tour.update({
             where: { id: params.id },
             data: body,
@@ -86,6 +90,10 @@ export async function DELETE(request: NextRequest, { params }: RouteParams): Pro
 
         if (!existingTour) {
             return NextResponse.json({ error: "تور مورد نظر پیدا نشد." }, { status: 404 })
+        }
+
+        if (existingTour.userId !== userId) {
+            return NextResponse.json({ error: "شما مجاز به حذف این تور نیستید." }, { status: 403 })
         }
 
         await prisma.tour.delete({

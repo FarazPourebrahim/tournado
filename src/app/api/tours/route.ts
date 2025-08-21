@@ -98,7 +98,10 @@ export async function POST(request: NextRequest): Promise<ApiResponseType<any>> 
         }
 
         const tour = await prisma.tour.create({
-            data: body,
+            data: {
+                ...body,
+                userId,
+            },
             include: {
                 _count: {
                     select: { comments: true },

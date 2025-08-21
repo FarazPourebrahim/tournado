@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 
 import { extractUserId } from "@/utils/api";
 
-const onlySignedInRoutes = ["/dashboard/profile"];
+const onlySignedInRoutes = ["/dashboard"];
 const onlyNotSignedInRoutes = ["/auth/sign-up", "/auth/sign-in"];
 
 export async function middleware(request: NextRequest) {
@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
 
   if (await extractUserId(request)) {
     if (isOnlyNotSignedInRoutes && !path.startsWith("/dashboard")) {
-      return Response.redirect(new URL("/dashboard/profile", request.url));
+      return Response.redirect(new URL("/dashboard", request.url));
     }
   } else {
     if (isOnlySignedInRoutes && !path.startsWith("/auth/sign-in")) {
