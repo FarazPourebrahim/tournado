@@ -9,9 +9,13 @@
 
   .checkboxGroup {
     font-size: var(--fz-400);
-    display: flex;
-    flex-wrap: wrap;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
     gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: auto;
+    max-height: 10rem;
 
     .checkboxItem {
       display: flex;

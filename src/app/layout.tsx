@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-
+import Toaster from "@/components/Toaster/Toaster";
 import "@/styles/typography.css";
 
 import "./globals.css";
@@ -31,6 +31,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

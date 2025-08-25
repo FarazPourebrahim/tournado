@@ -1,61 +1,94 @@
-import { ReactElement } from "react";
-import { MockTour, mockTours } from "@/mocks/mockTours";
-import { notFound } from "next/navigation";
-import styles from "./page.module.css";
-import Card from "@/components/Card/Card";
-import Image from "next/image";
-import ReturnButton from "@/components/ReturnButton/ReturnButton";
-import TourDetails from "@/app/tour/[id]/components/TourDetails/TourDetails";
+import type { ReactElement } from "react"
+import { notFound } from "next/navigation"
+import styles from "./page.module.css"
+import TourCard from "@/components/TourCard/TourCard"
+import Image from "next/image"
+import TourDetails from "@/app/tour/[id]/components/TourDetails/TourDetails"
+import ReturnButton from "@/components/ReturnButton/ReturnButton"
 
 type Props = {
-  params: { id: string };
-};
+  params: { id: string }
+}
 
-export default function page({ params }: Props): ReactElement {
-  const tour = mockTours.find((x) => x.id === Number(params.id));
+async function getTour(id: string) {
+  try {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/tours/${id}`
+    console.log("[v0] Fetching tour from:", apiUrl)
 
-  if (!tour) {
-    return notFound();
-  }
+    const response = await fetch(apiUrl, {
+      cache: "no-store",
+    })
 
-  //TEMP
-  const getRandomTours = (
-    count: number,
-    currentTourId: number,
-    tours: MockTour[],
-  ): MockTour[] => {
-    const filteredTours = tours.filter((tour) => tour.id !== currentTourId);
-    const indexes = new Set<number>();
+    console.log("[v0] Tour API response status:", response.status)
 
-    while (indexes.size < count && indexes.size < filteredTours.length) {
-      const randomIndex = Math.floor(Math.random() * filteredTours.length);
-      indexes.add(randomIndex);
+    if (!response.ok) {
+      console.log("[v0] Tour API response not ok:", response.statusText)
+      return null
     }
 
-    return Array.from(indexes).map((index) => filteredTours[index]);
-  };
+    const data = await response.json()
+    console.log("[v0] Tour data received:", data)
+    return data.data
+  } catch (error) {
+    console.error("[v0] Error fetching tour:", error)
+    return null
+  }
+}
 
-  const randomTours = getRandomTours(3, Number(params.id), mockTours);
+async function getRecommendedTours(currentTourId: string) {
+  try {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/tours?limit=3`
+    console.log("[v0] Fetching recommended tours from:", apiUrl)
+
+    const response = await fetch(apiUrl, {
+      cache: "no-store",
+    })
+
+    console.log("[v0] Recommended tours API response status:", response.status)
+
+    if (!response.ok) {
+      console.log("[v0] Recommended tours API response not ok:", response.statusText)
+      return []
+    }
+
+    const data = await response.json()
+    console.log("[v0] Recommended tours data received:", data)
+    const tours = data.data?.tours || []
+    return tours.filter((tour: any) => tour.id !== currentTourId)
+  } catch (error) {
+    console.error("[v0] Error fetching recommended tours:", error)
+    return []
+  }
+}
+
+export default async function page({ params }: Props): Promise<ReactElement> {
+  const tour = await getTour(params.id)
+
+  if (!tour) {
+    return notFound()
+  }
+
+  const recommendedTours = await getRecommendedTours(params.id)
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <div className={styles["main-header"]}>
-          <h2 className={styles.title}>{tour.title}</h2>
-          <ReturnButton>بازگشت</ReturnButton>
-        </div>
-        <div className={styles.separator}></div>
-        <div className={styles.image}>
-          <Image src={tour.image} alt={tour.title} width={600} height={400} />
-        </div>
-        <TourDetails tourId={Number(params.id)} />
-      </main>
-      <aside className={styles.recommended}>
-        <h3 className={styles["recommended-header"]}>تورهای مشابه</h3>
-        {randomTours.map((tour) => (
-          <Card key={tour.id} tour={tour} />
-        ))}
-      </aside>
-    </div>
-  );
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <div className={styles["main-header"]}>
+            <h2 className={styles.title}>{tour.title}</h2>
+            <ReturnButton>بازگشت</ReturnButton>
+          </div>
+          <div className={styles.separator}></div>
+          <div className={styles.image}>
+            <Image src={tour.image || "/placeholder.svg"} alt={tour.title} width={600} height={400} />
+          </div>
+          <TourDetails tour={tour} />
+        </main>
+        <aside className={styles.recommended}>
+          <h3 className={styles["recommended-header"]}>تورهای مشابه</h3>
+          {recommendedTours.map((tour: any) => (
+              <TourCard key={tour.id} tour={tour} />
+          ))}
+        </aside>
+      </div>
+  )
 }

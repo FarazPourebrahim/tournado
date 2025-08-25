@@ -1,0 +1,86 @@
+.container {
+    width: 100%;
+}
+
+.searchSection {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-end;
+}
+
+.searchInput {
+    flex: 1;
+    max-width: 400px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 1.125rem;
+    color: var(--color-surface-700);
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    background: var(--color-surface-300);
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-surface-400);
+}
+
+.emptyState h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-default-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.emptyState p {
+    font-size: 1rem;
+    color: var(--color-surface-700);
+    margin-bottom: 1.5rem;
+}
+
+.toursGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.pageInfo {
+    font-size: 1rem;
+    color: var(--color-surface-700);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .searchSection {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .searchInput {
+        max-width: none;
+    }
+
+    .toursGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

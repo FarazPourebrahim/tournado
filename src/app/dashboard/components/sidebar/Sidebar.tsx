@@ -1,0 +1,64 @@
+"use client"
+
+import type { ReactElement } from "react"
+
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+import clsx from "clsx"
+
+import SignOutButtonComponent from "@/app/dashboard/components/sign-out-button/SignOutButton"
+
+import MingcuteCalendar2Line from "@/icons/MingcuteCalendar2Line"
+import MingcuteHandHeartLine from "@/icons/MingcuteHandHeartLine"
+import MingcuteUser3Line from "@/icons/MingcuteUser3Line"
+import MingcutePlus from "@/icons/MingcutePlus"
+import MingcuteLocationLine from "@/icons/MingcuteLocationLine"
+
+import styles from "./Sidebar.module.css"
+
+type NavItem = {
+  title: string
+  href: string
+  icon: ReactElement
+}
+
+const items: NavItem[] = [
+  {
+    title: "ویرایش پروفایل",
+    href: "/dashboard/profile",
+    icon: <MingcuteUser3Line />,
+  },
+  {
+    title: "ایجاد تور جدید",
+    href: "/dashboard/new-tour",
+    icon: <MingcutePlus />,
+  },
+  {
+    title: "تور های من",
+    href: "/dashboard/my-tours",
+    icon: <MingcuteLocationLine />,
+  },
+]
+
+export default function SidebarComponent(): ReactElement {
+  const pathname = usePathname()
+
+  return (
+      <aside className={styles.sidebar}>
+        <nav aria-label="Pages in Dashboard">
+          <ul>
+            {items.map((item) => (
+                <li key={item.title} className={clsx(styles.item, pathname === item.href && styles.active)}>
+                  <Link href={item.href}>
+                    {item.icon}
+                    {item.title}
+                  </Link>
+                </li>
+            ))}
+          </ul>
+        </nav>
+        <SignOutButtonComponent className={styles.item} />
+      </aside>
+  )
+}
