@@ -41,7 +41,7 @@ export default function MyToursContent() {
                 params.append("search", searchQuery.trim())
             }
 
-            const response = await fetchWithToast<MyToursResponse>(`/api/my-tours?${params}`, {
+            const response = await fetchWithToast<MyToursResponse>(`/my-tours?${params}`, {
                 method: "GET",
             })
 

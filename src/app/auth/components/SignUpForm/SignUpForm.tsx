@@ -36,7 +36,7 @@ export default function SignUpForm(): ReactElement {
     };
 
     const result = await fetchWithToast<null>(
-      "/api/auth/sign-up",
+      "/auth/signup",
       {
         method: "POST",
         body: JSON.stringify(dto),

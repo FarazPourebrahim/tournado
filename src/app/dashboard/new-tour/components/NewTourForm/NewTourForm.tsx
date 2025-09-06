@@ -118,7 +118,7 @@ export default function NewTourForm(): ReactElement {
             }
 
             await fetchWithToast(
-                "/api/tours",
+                "/tours",
                 {
                     method: "POST",
                     headers: {

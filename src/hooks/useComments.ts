@@ -25,7 +25,7 @@ export function useComments(): UseComments {
         setError(null)
 
         try {
-            const response = await fetch(`/api/tours/${tourId}/comments?page=${page}&limit=10`)
+            const response = await fetch(`http://localhost:8080/api/tours/${tourId}/comments?page=${page}&limit=10`)
 
             if (!response.ok) {
                 throw new Error("خطا در دریافت نظرات")
@@ -52,7 +52,7 @@ export function useComments(): UseComments {
         setError(null)
 
         try {
-            const response = await fetch(`/api/tours/${tourId}/comments`, {
+            const response = await fetch(`http://localhost:8080/api/tours/${tourId}/comments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

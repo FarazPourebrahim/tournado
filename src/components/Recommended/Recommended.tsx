@@ -13,7 +13,7 @@ export default function Recommended(): ReactElement {
     useEffect(() => {
         const fetchRandomTours = async () => {
             try {
-                const response = await fetch("/api/tours?limit=20")
+                const response = await fetch("http://localhost:8080/api/tours?limit=20")
                 const data = await response.json()
 
                 if (data.data?.tours) {

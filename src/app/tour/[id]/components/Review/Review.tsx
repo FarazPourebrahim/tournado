@@ -23,7 +23,7 @@ export default function Review({ tourId }: ReviewProps): ReactElement {
       if (!tourId) return
 
       try {
-        const result = await fetchWithToast(`/api/tours/${tourId}/comments`)
+        const result = await fetchWithToast(`/tours/${tourId}/comments`)
 
         if (result.data) {
           // @ts-ignore
@@ -49,7 +49,7 @@ export default function Review({ tourId }: ReviewProps): ReactElement {
 
     try {
       const result = await fetchWithToast(
-          `/api/tours/${tourId}/comments`,
+          `/tours/${tourId}/comments`,
           {
             method: "POST",
             body: JSON.stringify({ content: newComment.trim() }),
@@ -62,7 +62,7 @@ export default function Review({ tourId }: ReviewProps): ReactElement {
         setNewComment("")
 
         // Refresh comments
-        const refreshResult = await fetchWithToast(`/api/tours/${tourId}/comments`)
+        const refreshResult = await fetchWithToast(`/tours/${tourId}/comments`)
         if (refreshResult.data) {
           // @ts-ignore
           setComments(refreshResult.data?.comments || [])

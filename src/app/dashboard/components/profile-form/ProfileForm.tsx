@@ -24,7 +24,7 @@ export default function ProfileFormComponent(): ReactElement {
   useEffect(() => {
     const fetchProfile = async () => {
       const result = await fetchWithToast<EditProfileDto>(
-        "/api/dashboard/profile",
+        "/user",
       );
 
       if (result.error) {
@@ -45,7 +45,7 @@ export default function ProfileFormComponent(): ReactElement {
     e.preventDefault();
 
     const result = await fetchWithToast<null>(
-      "/api/dashboard/profile",
+      "/user",
       {
         method: "PATCH",
         body: JSON.stringify(values),

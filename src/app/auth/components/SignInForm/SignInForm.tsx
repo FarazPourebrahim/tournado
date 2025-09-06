@@ -29,7 +29,7 @@ export default function SignInForm(): ReactElement {
     };
 
     const result = await fetchWithToast<null>(
-      "/api/auth/sign-in",
+      "/auth/signin",
       {
         method: "POST",
         body: JSON.stringify(dto),

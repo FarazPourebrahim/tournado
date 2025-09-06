@@ -12,10 +12,7 @@ type Props = {
 
 async function getTour(id: string) {
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/tours/${id}`
-    console.log("[v0] Fetching tour from:", apiUrl)
-
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`http://localhost:8080/api/tours/${id}`, {
       cache: "no-store",
     })
 
@@ -37,10 +34,7 @@ async function getTour(id: string) {
 
 async function getRecommendedTours(currentTourId: string) {
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/tours?limit=3`
-    console.log("[v0] Fetching recommended tours from:", apiUrl)
-
-    const response = await fetch(apiUrl, {
+    const response = await fetch(`http://localhost:8080/api/tours?limit=3`, {
       cache: "no-store",
     })
 

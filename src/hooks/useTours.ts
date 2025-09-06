@@ -36,7 +36,7 @@ export function useTours(): UseTours {
                 }
             })
 
-            const response = await fetch(`/api/tours?${searchParams.toString()}`)
+            const response = await fetch(`http://localhost:8080/api/tours?${searchParams.toString()}`)
 
             if (!response.ok) {
                 throw new Error("خطا در دریافت تورها")

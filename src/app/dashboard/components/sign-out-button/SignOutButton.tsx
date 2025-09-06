@@ -19,7 +19,7 @@ export default function SignOutButtonComponent({
 
   const signOutButtonClickHandler = async (): Promise<void> => {
     const result = await fetchWithToast<null>(
-      "/api/auth/sign-out",
+      "/auth/logout",
       {
         method: "POST",
       },

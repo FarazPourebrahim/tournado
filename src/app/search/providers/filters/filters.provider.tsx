@@ -39,7 +39,7 @@ export default function FiltersProvider({ children }: Props): ReactElement {
   useEffect(() => {
     const fetchPriceRange = async () => {
       try {
-        const response = await fetch("/api/tours?limit=1000")
+        const response = await fetch("http://localhost:8080/api/tours?limit=1000")
         const data = await response.json()
 
         if (data.data?.tours) {
